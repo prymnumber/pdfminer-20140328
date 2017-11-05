@@ -46,8 +46,8 @@ def convert_pdf_to_txt(path):
 filler_words = {'the','of','to','and','in','for','is','were','will','on','or','a','an'}
 
 # Begin pdf consumption
-#pdf_file = '/Users/iposton/GitHub/PdfScrape/pdfminer-20140328/Files/Irene_Chen_Resume_2017_Sep.pdf'
-pdf_file = '/Users/iposton/GitHub/PdfScrape/pdfminer-20140328/Files/v2_2015MotoCrashStat_Upd_3_2017.pdf'
+pdf_file = '/Users/iposton/GitHub/PdfScrape/pdfminer-20140328/Files/Irene_Chen_Resume_2017_Sep.pdf'
+#pdf_file = '/Users/iposton/GitHub/PdfScrape/pdfminer-20140328/Files/v2_2015MotoCrashStat_Upd_3_2017.pdf'
 #pdf_file = '/Users/iposton/GitHub/PdfScrape/pdfminer-20140328/Files/administrative_guide_vacations.pdf'
 #pdf_file = '/Users/iposton/GitHub/PdfScrape/pdfminer-20140328/Files/recruiting_and_hiring_of_regular_staff.pdf'
 pdf_file_str = convert_pdf_to_txt(pdf_file)
