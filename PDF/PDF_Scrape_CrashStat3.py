@@ -9,12 +9,15 @@ from pdfminer.layout import LAParams
 from pdfminer.pdfpage import PDFPage
 from cStringIO import StringIO
 import os
-#import matplotlib %inline
-#matplotlib.style.use('ggplot')
 import matplotlib.pyplot as plt
-#from ggplot import *
+#import ggplot as gg
 import pandas as pd
+import numpy as np
+import sys
 
+print('Arg 1 (program name): ',str(sys.argv[0]))
+print('Arg 2 (input file name): ',str(sys.argv[1]))
+print('Arg 3 (output file name): ',str(sys.argv[2]))
 
 # function that uses pdfminer to process pdfs
 # returns string
@@ -43,16 +46,20 @@ def convert_pdf_to_txt(path):
     return text
 
 #global stuff
-filler_words = {'the','of','to','and','in','for','is','were','will','on','or','a','an'}
+filler_words = {'the','of','to','and','in','or','a','an','that',
+                'for','is','were','will','on','with','at','I'}
 
 # Begin pdf consumption
-pdf_file = '/Users/iposton/GitHub/PdfScrape/pdfminer-20140328/Files/Irene_Chen_Resume_2017_Sep.pdf'
+#pdf_file = '/Users/iposton/GitHub/PdfScrape/pdfminer-20140328/Files/Irene_Chen_Resume_2017_Sep.pdf'
 #pdf_file = '/Users/iposton/GitHub/PdfScrape/pdfminer-20140328/Files/v2_2015MotoCrashStat_Upd_3_2017.pdf'
 #pdf_file = '/Users/iposton/GitHub/PdfScrape/pdfminer-20140328/Files/administrative_guide_vacations.pdf'
 #pdf_file = '/Users/iposton/GitHub/PdfScrape/pdfminer-20140328/Files/recruiting_and_hiring_of_regular_staff.pdf'
+pdf_file = '/Users/iposton/GitHub/PdfScrape/pdfminer-20140328/Files/'+str(sys.argv[1])
 pdf_file_str = convert_pdf_to_txt(pdf_file)
 
-out_file = 'PDF_text_outputtxt'
+#out_file = 'PDF_text_outputtxt'
+out_file = '/Users/iposton/GitHub/PdfScrape/pdfminer-20140328/Files/'+str(sys.argv[2])
+
 # Write content of pdf to text file
 fo = open(out_file, 'w+')
 fo.write(pdf_file_str)
@@ -73,19 +80,20 @@ pdf_dict[out_file] = os.path.getsize(out_file)
 # for each word in file, count how many times it exist in the file
 for line in fo:
     for word in line.split():
+        if word not in filler_words:
 
-        #if word already exist, just increment count
-        if pdf_dict.has_key(word):
-            pdf_dict[word] = pdf_dict[word] + 1
-        #if wordis new, then add to list
-        else:
-            #word is not one of fller_words
-            pdf_dict[word] = 1
+            #if word already exist, just increment count
+            if pdf_dict.has_key(word):
+                pdf_dict[word] = pdf_dict[word] + 1
+            #if wordis new, then add to list
+            else:
+                #word is not one of fller_words
+                pdf_dict[word] = 1
 
-        if lim <> 0:
-            x += 1
-            if x == lim:
-                break
+            if lim <> 0:
+                x += 1
+                if x == lim:
+                    break
     if lim <> 0:
         if x == lim:
             break
@@ -124,6 +132,8 @@ print(pdf_df_limit.head(15))
 b = plt.figure()
 pdf_df_limit.plot.bar(x='Word')
 plt.show(b)
+
+#make coorelation matrix of every word in file
 
 
 print('very end')
